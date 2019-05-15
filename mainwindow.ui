@@ -79,6 +79,39 @@
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
+        <widget class="QPushButton" name="jackButton">
+         <property name="text">
+          <string>Jack</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+         <property name="checked">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="playButton">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="text">
+          <string>Play</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="stopButton">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="text">
+          <string>Stop</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QPushButton" name="exitButton">
          <property name="text">
           <string>Exit</string>

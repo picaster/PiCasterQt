@@ -22,6 +22,12 @@ private slots:
 
     void on_exitButton_clicked();
 
+    void on_jackButton_toggled(bool checked);
+
+    void on_playButton_clicked();
+
+    void on_stopButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     QString settingsFileName;

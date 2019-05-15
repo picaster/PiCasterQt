@@ -20,9 +20,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     this->settingsFileName = QApplication::applicationDirPath().left(1) + ":/picaster.ini";
     this->loadSettings();
-
-    ui->trackListWidget->addItem(QString("All about that base"));
-    ui->trackListWidget->addItem(QString("Wreking ball"));
 }
 
 MainWindow::~MainWindow()
@@ -60,7 +57,8 @@ void MainWindow::on_addMusicPushButton_clicked()
             int seconds = audio_properties->length() % 60;
             int minutes = (audio_properties->length() - seconds) / 60;
 
-            item += " [" + QString::number(minutes) + ":" + QString::number(seconds) + "]";
+            QString time(" [%1:%2]");
+            item += time.arg(minutes).arg(seconds, 2, 10, QChar('0'));
         }
         else
         {
@@ -81,4 +79,24 @@ void MainWindow::loadSettings()
 void MainWindow::on_exitButton_clicked()
 {
     QApplication::quit();
+}
+
+void MainWindow::on_jackButton_toggled(bool checked)
+{
+    this->ui->playButton->setEnabled(checked);
+    this->ui->exitButton->setEnabled(!checked);
+}
+
+void MainWindow::on_playButton_clicked()
+{
+    this->ui->playButton->setEnabled(false);
+    this->ui->jackButton->setEnabled(false);
+    this->ui->stopButton->setEnabled(true);
+}
+
+void MainWindow::on_stopButton_clicked()
+{
+    this->ui->playButton->setEnabled(true);
+    this->ui->jackButton->setEnabled(true);
+    this->ui->stopButton->setEnabled(false);
 }
