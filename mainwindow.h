@@ -20,6 +20,8 @@ private slots:
 
     void on_addMusicPushButton_clicked();
 
+    void on_exitButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     QString settingsFileName;
