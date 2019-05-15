@@ -2,6 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QStringListModel>
+
+#include "playlistitemmodel.h"
 
 namespace Ui {
 class MainWindow;
@@ -28,12 +31,17 @@ private slots:
 
     void on_stopButton_clicked();
 
+    void on_removeItemButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     QString settingsFileName;
     QString musicDir;
-    void loadSettings();
+    PlaylistItemModel* model;
+    //QStringListModel* model;
 
+    void loadSettings();
+    void saveSettings();
 };
 
 #endif // MAINWINDOW_H

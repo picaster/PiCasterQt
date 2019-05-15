@@ -11,6 +11,8 @@
 #include <tag.h>
 #include <tpropertymap.h>
 
+#include "playlistitemmodel.h"
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -18,7 +20,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     this->setWindowFlags(Qt::FramelessWindowHint);
 
-    this->settingsFileName = QApplication::applicationDirPath().left(1) + ":/picaster.ini";
+    this->model = new PlaylistItemModel(this);
+    this->ui->trackListView->setModel(this->model);
+
+    this->settingsFileName = QStandardPaths::standardLocations(QStandardPaths::AppLocalDataLocation).first() + "/picaster.ini";
     this->loadSettings();
 }
 
@@ -29,7 +34,11 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_addStopPushButton_clicked()
 {
-    this->ui->trackListWidget->addItem(QString(">> Stop player <<"));
+    int row = this->model->rowCount();
+    this->model->insertRow(row);
+    QModelIndex index = this->model->index(row, 0);
+    this->model->setData(index, QString(">> Stop player <<"));
+    this->model->addItem(new ControlItem());
 }
 
 void MainWindow::on_addMusicPushButton_clicked()
@@ -64,20 +73,65 @@ void MainWindow::on_addMusicPushButton_clicked()
         {
             item = fileInfo.fileName();
         }
-        ui->trackListWidget->addItem(item);
+        this->model->addItem(new TrackItem(item));
         this->musicDir = fileInfo.absolutePath();
     }
 }
 
 void MainWindow::loadSettings()
 {
-    QSettings settings(this->settingsFileName, QSettings::NativeFormat);
+    QSettings settings(this->settingsFileName, QSettings::IniFormat);
 
     this->musicDir = settings.value("musicDir", QStandardPaths::standardLocations(QStandardPaths::MusicLocation).first()).toString();
+
+    int length = settings.value("playlist/length", 0).toInt();
+    for (int i = 0; i < length; i++)
+    {
+        PlaylistItemType playlistItemType = static_cast<PlaylistItemType>(settings.value(QString("playlist/%1.type").arg(i)).toInt());
+        QString value = settings.value(QString("playlist/%1.value").arg(i)).toString();
+        switch (playlistItemType)
+        {
+        case TRACK:
+            this->model->addItem(new TrackItem(value));
+            break;
+        case CONTROL:
+            this->model->addItem(new ControlItem());
+            break;
+        }
+
+
+    }
+}
+
+void MainWindow::saveSettings()
+{
+    QSettings settings(this->settingsFileName, QSettings::IniFormat);
+
+    settings.setValue("musicDir", this->musicDir);
+
+    int count = this->model->rowCount();
+    const QList<PlaylistItem*> list = this->model->list();
+    settings.setValue("playlist/length", count);
+    for (int i = 0; i < count; i++)
+    {
+        PlaylistItemType type = list.at(i)->getType();
+        settings.setValue(QString("playlist/%1.type").arg(i), type);
+        QString key = QString("playlist/%1.value").arg(i);
+        switch(type)
+        {
+        case TRACK:
+            settings.setValue(key, static_cast<TrackItem*>(list.at(i))->getPath());
+            break;
+        case CONTROL:
+            settings.setValue(key, "");
+        }
+    }
+    std::cerr << this->settingsFileName.toStdString() << std::endl;
 }
 
 void MainWindow::on_exitButton_clicked()
 {
+    this->saveSettings();
     QApplication::quit();
 }
 
@@ -99,4 +153,13 @@ void MainWindow::on_stopButton_clicked()
     this->ui->playButton->setEnabled(true);
     this->ui->jackButton->setEnabled(true);
     this->ui->stopButton->setEnabled(false);
+}
+
+void MainWindow::on_removeItemButton_clicked()
+{
+    if (this->ui->trackListView->selectionModel()->hasSelection())
+    {
+        int row = this->ui->trackListView->currentIndex().row();
+        this->model->removeItem(row);
+    }
 }

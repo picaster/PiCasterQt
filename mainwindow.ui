@@ -34,7 +34,7 @@
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
-        <widget class="QListWidget" name="trackListWidget">
+        <widget class="QListView" name="trackListView">
          <property name="contextMenuPolicy">
           <enum>Qt::DefaultContextMenu</enum>
          </property>
@@ -60,6 +60,13 @@
            <widget class="QPushButton" name="addStopPushButton">
             <property name="text">
              <string>Add stop</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="removeItemButton">
+            <property name="text">
+             <string>Remove item</string>
             </property>
            </widget>
           </item>
