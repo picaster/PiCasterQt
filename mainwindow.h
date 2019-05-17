@@ -12,36 +12,38 @@ class MainWindow;
 
 class MainWindow : public QMainWindow
 {
-    Q_OBJECT
+  Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
+  explicit MainWindow(QWidget* parent = nullptr);
+  ~MainWindow();
 
 private slots:
-    void on_addStopPushButton_clicked();
+  void on_addStopPushButton_clicked();
 
-    void on_addMusicPushButton_clicked();
+  void on_addMusicPushButton_clicked();
 
-    void on_exitButton_clicked();
+  void on_exitButton_clicked();
 
-    void on_jackButton_toggled(bool checked);
+  void on_jackButton_toggled(bool checked);
 
-    void on_playButton_clicked();
+  void on_playButton_clicked();
 
-    void on_stopButton_clicked();
+  void on_stopButton_clicked();
 
-    void on_removeItemButton_clicked();
+  void on_removeItemButton_clicked();
+
+  void on_djVolumeDial_valueChanged(int value);
 
 private:
-    Ui::MainWindow *ui;
-    QString settingsFileName;
-    QString musicDir;
-    PlaylistItemModel* model;
-    //QStringListModel* model;
+  Ui::MainWindow* ui;
+  QString settingsFileName;
+  QString musicDir;
+  PlaylistItemModel* model;
 
-    void loadSettings();
-    void saveSettings();
+  void loadSettings();
+  void saveSettings();
+  void jackStarted(bool started);
 };
 
 #endif // MAINWINDOW_H

@@ -1,11 +1,23 @@
 #include "mainwindow.h"
 #include <QApplication>
 
-int main(int argc, char *argv[])
-{
-    QApplication a(argc, argv);
-    MainWindow w;
-    w.show();
+#include "jack/jackclient.h"
 
-    return a.exec();
+extern "C"
+{
+#include <libavcodec/avcodec.h>
+#include <libavformat/avformat.h>
+#include <libavresample/avresample.h>
+}
+
+int
+main(int argc, char* argv[])
+{
+  QApplication a(argc, argv);
+  JackClient::getInstance();
+  av_register_all();
+  MainWindow w;
+  w.show();
+
+  return a.exec();
 }

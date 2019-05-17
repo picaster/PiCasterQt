@@ -26,15 +26,28 @@ win32: DEFINES += TAGLIB_STATIC
 CONFIG += c++11
 
 SOURCES += \
+        jack/jackclient.cpp \
+        jack/jackfadermodule.cpp \
+        jack/jackmodule.cpp \
+        jack/jackport.cpp \
         main.cpp \
         mainwindow.cpp \
         playlistitem.cpp \
-        playlistitemmodel.cpp
+        playlistitemmodel.cpp \
+        utils/signalbus.cpp
+
+RESOURCES += \
+        resources/picaster.astylerc
 
 HEADERS += \
+        jack/jackclient.h \
+        jack/jackfadermodule.h \
+        jack/jackmodule.h \
+        jack/jackport.h \
         mainwindow.h \
         playlistitem.h \
-        playlistitemmodel.h
+        playlistitemmodel.h \
+        utils/signalbus.h
 
 FORMS += \
         mainwindow.ui
@@ -45,7 +58,10 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 unix: CONFIG += link_pkgconfig
-unix: PKGCONFIG += taglib
+unix: PKGCONFIG += taglib alsa jack libavformat libavcodec libavresample
 
 win32: LIBS += -L"D:\usr\local\lib" -ltag
 win32: INCLUDEPATH += "D:\usr\local\include\taglib"
+
+DISTFILES += \
+    resources/picaster.astylerc

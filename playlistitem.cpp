@@ -1,16 +1,10 @@
 #include "playlistitem.h"
 
-PlaylistItem::~PlaylistItem()
-{
-
-}
+PlaylistItem::~PlaylistItem() {}
 
 TrackItem::TrackItem(const QString path)
 {
-    this->path = path;
+  this->path = path;
 }
 
-ControlItem::ControlItem()
-{
-
-}
+ControlItem::ControlItem() {}
