@@ -5,10 +5,9 @@
 
 #include "playlistitem.h"
 
-class PlaylistItemModel : public QAbstractListModel
-{
+class PlaylistItemModel : public QAbstractListModel {
   Q_OBJECT
-public:
+ public:
   explicit PlaylistItemModel(QObject* parent = nullptr);
 
   int rowCount(const QModelIndex& parent = QModelIndex()) const override;
@@ -18,8 +17,8 @@ public:
   bool removeItem(int row);
   const QList<PlaylistItem*> list() { return lst; }
 
-private:
+ private:
   QList<PlaylistItem*> lst;
 };
 
-#endif // PLAYLISTITEMMODEL_H
+#endif  // PLAYLISTITEMMODEL_H

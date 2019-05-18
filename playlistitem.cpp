@@ -2,8 +2,8 @@
 
 PlaylistItem::~PlaylistItem() {}
 
-TrackItem::TrackItem(const QString path)
-{
+TrackItem::TrackItem(const QString label, const QString path) {
+  this->label = label;
   this->path = path;
 }
 

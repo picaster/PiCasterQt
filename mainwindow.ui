@@ -34,7 +34,7 @@
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
-        <widget class="QListView" name="trackListView">
+        <widget class="TrackListView" name="trackListView">
          <property name="contextMenuPolicy">
           <enum>Qt::DefaultContextMenu</enum>
          </property>
@@ -95,7 +95,7 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_4">
           <item>
-           <widget class="QPushButton" name="jackButton">
+           <widget class="JackButton" name="jackButton">
             <property name="text">
              <string>Jack</string>
             </property>
@@ -120,7 +120,10 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_5">
           <item>
-           <widget class="QDial" name="djVolumeDial">
+           <widget class="MicDial" name="djVolumeDial">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="maximum">
              <number>16</number>
             </property>
@@ -133,12 +136,15 @@
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton">
+           <widget class="MicButton" name="pushButton">
             <property name="enabled">
              <bool>false</bool>
             </property>
             <property name="text">
              <string>Mic</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
             </property>
            </widget>
           </item>
@@ -168,17 +174,20 @@
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="playButton">
+           <widget class="PlayButton" name="playButton">
             <property name="enabled">
              <bool>false</bool>
             </property>
             <property name="text">
              <string>Play</string>
             </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="stopButton">
+           <widget class="StopButton" name="stopButton">
             <property name="enabled">
              <bool>false</bool>
             </property>
@@ -200,7 +209,7 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_6">
           <item>
-           <widget class="QPushButton" name="exitButton">
+           <widget class="ExitButton" name="exitButton">
             <property name="text">
              <string>Exit</string>
             </property>
@@ -217,6 +226,43 @@
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>JackButton</class>
+   <extends>QPushButton</extends>
+   <header>ui/jackbutton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>PlayButton</class>
+   <extends>QPushButton</extends>
+   <header>ui/playbutton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>TrackListView</class>
+   <extends>QListView</extends>
+   <header>ui/tracklistview.h</header>
+  </customwidget>
+  <customwidget>
+   <class>ExitButton</class>
+   <extends>QPushButton</extends>
+   <header>ui/exitbutton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MicButton</class>
+   <extends>QPushButton</extends>
+   <header>ui/micbutton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MicDial</class>
+   <extends>QDial</extends>
+   <header>ui/micdial.h</header>
+  </customwidget>
+  <customwidget>
+   <class>StopButton</class>
+   <extends>QPushButton</extends>
+   <header>ui/stopbutton.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

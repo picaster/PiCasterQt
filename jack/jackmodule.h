@@ -8,14 +8,13 @@
 
 class JackClient;
 
-class JackModule : public QObject
-{
+class JackModule : public QObject {
   Q_OBJECT
 
-public:
+ public:
   JackModule();
-  virtual void process(const jack_nframes_t nframes) const;
+  virtual void process(const jack_nframes_t nframes) const = 0;
   virtual ~JackModule();
 };
 
-#endif // JACKMODULE_H
+#endif  // JACKMODULE_H

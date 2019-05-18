@@ -10,17 +10,16 @@
 
 #include "../utils/signalbus.h"
 
-class JackClient : public QObject
-{
-private:
+class JackClient : public QObject {
+ private:
   static JackClient* instance;
   jack_client_t* client;
   QList<JackModule*> modules;
 
-private:
+ private:
   JackClient();
 
-public:
+ public:
   static JackClient* getInstance();
   int processCallback(jack_nframes_t nframes);
   JackPort* registerPort(QString name, JackPortFlags jackPortFlags);
@@ -28,10 +27,11 @@ public:
   void connectPorts(JackPort* source, JackPort* destination);
   void registerModule(JackModule* module);
 
-private:
-  void connectToServer(bool checked);
+ private:
+  void connectToServer();
+  void disconnectFromServer();
   void registerModules();
   JackFaderModule* micFaderModule;
 };
 
-#endif // JACKCLIENT_H
+#endif  // JACKCLIENT_H

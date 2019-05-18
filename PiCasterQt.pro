@@ -30,23 +30,42 @@ SOURCES += \
         jack/jackfadermodule.cpp \
         jack/jackmodule.cpp \
         jack/jackport.cpp \
+        jack/jacktrackplayer.cpp \
         main.cpp \
         mainwindow.cpp \
         playlistitem.cpp \
         playlistitemmodel.cpp \
+        ui/exitbutton.cpp \
+        ui/jackbutton.cpp \
+        ui/micbutton.cpp \
+        ui/micdial.cpp \
+        ui/playbutton.cpp \
+        ui/stopbutton.cpp \
+        ui/tracklistview.cpp \
+        utils/mediaplayer.cpp \
         utils/signalbus.cpp
 
 RESOURCES += \
-        resources/picaster.astylerc
+        resources/picaster.astylerc \
+        CONTRIBUTORS.txt
 
 HEADERS += \
         jack/jackclient.h \
         jack/jackfadermodule.h \
         jack/jackmodule.h \
         jack/jackport.h \
+        jack/jacktrackplayer.h \
         mainwindow.h \
         playlistitem.h \
         playlistitemmodel.h \
+        ui/exitbutton.h \
+        ui/jackbutton.h \
+        ui/micbutton.h \
+        ui/micdial.h \
+        ui/playbutton.h \
+        ui/stopbutton.h \
+        ui/tracklistview.h \
+        utils/mediaplayer.h \
         utils/signalbus.h
 
 FORMS += \
@@ -58,10 +77,11 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 unix: CONFIG += link_pkgconfig
-unix: PKGCONFIG += taglib alsa jack libavformat libavcodec libavresample
+unix: PKGCONFIG += taglib alsa jack libavformat libavcodec libavresample libavutil
 
 win32: LIBS += -L"D:\usr\local\lib" -ltag
 win32: INCLUDEPATH += "D:\usr\local\include\taglib"
 
 DISTFILES += \
+    CONTRIBUTORS.txt \
     resources/picaster.astylerc

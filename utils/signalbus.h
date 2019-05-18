@@ -3,23 +3,36 @@
 
 #include <QObject>
 
-class SignalBus : public QObject
-{
+class SignalBus : public QObject {
   Q_OBJECT
 
-private:
+ private:
   static SignalBus* instance;
 
-public:
+ public:
   explicit SignalBus(QObject* parent = nullptr);
   static SignalBus* getInstance();
 
-signals:
-  void startJack(bool checked);
-  void jackStarted(bool started);
-  void djVolumeChanged(long double dbValue);
+ signals:
+  void startJack();
+  void stopJack();
 
-public slots:
+  void jackStarted();
+  void jackStopped();
+
+  void micDialChanged(long double dbValue);
+
+  void muted();
+  void unMuted();
+
+  void startPlaylist();
+  void stopPlaylist();
+  void playlistStarted();
+  void playlistStopped();
+
+  void exit();
+
+ public slots:
 };
 
-#endif // SIGNALBUS_H
+#endif  // SIGNALBUS_H
